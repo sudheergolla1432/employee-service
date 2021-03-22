@@ -1,101 +1,35 @@
-# employee-service
-Sample Employee Service project with few rest endpoints coded using h2 in-memory database
+# employeeserv
 
-As per requirements I have created/modified 3 rest endpoints. And also handled all exceptions.
-Also coded for validations of RequestBody.
+## Application Overview
+employeeserv is a spring boot rest application which would provide the CRUD operations for `Employee` resource.
 
-Code can be found in below git repository link:
+There are three modules in this application
+- employeeservApi - This module contains the interface.
+	- `v1/schema/employee.json` defines the employee resource.
+	- `jsonschema2pojo-maven-plugin` is being used to create `Employee POJO` from json file.
+	- `EmployeeResource.java` is the interface for CRUD operations on `Employee` resource.
+		- GET `/v1/bfs/employees/{id}` endpoint is defined to fetch the resource.
+- employeeservImplementation - This module contains the implementation for the rest endpoints.
+	- `EmployeeResourceImpl.java` implements the `EmployeeResource` interface.
+- employeeservFunctionalTests - This module would have the functional tests.
 
+## How to run the application
+- Please have Maven version `3.3.3` & Java 8 on your system.
+- Use command `mvn clean install` to build the project.
+- Use command `mvn spring-boot:run` from `employeeservImplementation` folder to run the project.
+- Use postman or curl to access `http://localhost:8080/v1/bfs/employees/1` GET endpoint. It will return an Employee resource.
 
+## Assignment
+We would like you to enhance the existing project and see you complete the following requirements:
 
-Rest Endpoints created or modified:
+- `employee.json` has only `name`, and `id` elements. Please add `date of birth` and `address` elements to the `Employee` resource. Address will have `line1`, `line2`, `city`, `state`, `country` and `zip_code` elements. `line2` is an optional element.
+- Add one more operation in `EmployeeResource` to create an employee. `EmployeeResource` will have two operations, one to create, and another to retrieve the employee resource.
+- Implement create and retrieve operations in `EmployeeResourceImpl.java`.
+- Resource created using create endpoint should be retrieved using retrieve/get endpoint.
+- Please use h2 in-memory database or any other in-memory database to persist the `Employee` resource. Dependency for h2 in-memory database is already added to the parent pom.
+- Please make sure the validations are done for the requests.
+- Response codes are as per rest guidelines.
+- Error handling in case of failures.
 
-1. http://localhost:8080/v1/bfs/employees/1 (@GetMapping)(Modified)
-	
-   Default end point given by paypal is modified to get data from databse.
-   
-   Sample response body:
-	
-	{
-		"id": 1,
-		"first_name": "sample_first_name",
-		"last_name": "sample_last_name",
-		"date_of_birth": "sample_dob",
-		"address": {
-			"line1": "sample_line1",
-			"city": "sample_city",
-			"state": "sample_state",
-			"country": "sample_country",
-			"zip_code": "sample_pincode"
-    }
-}
-	
-   
-2. http://localhost:8080/v1/bfs/create (@PostMapping)(New)
-	
-   New end point created to create employee in database using post request body.
-   
-   Example post request body:
-   
-		{
-		"id": "1",
-		"first_name": "sample_first_name",
-		"last_name": "sample_last_name",
-		"date_of_birth" : "sample_dob"
-		}
-		
-	I have used OneToOne mapping between Employee and Address so saving employee will also save Address in assosiated table.
-	
-	Logic can be found in code.
-	
-	Example post response body:
-	
-	{
-			"id": 1,
-			"first_name": "sample_first_name",
-			"last_name": "sample_last_name",
-			"date_of_birth": "sample_dob",
-			 "address": {
-				"line1": "sample_line1",
-				"city": "sample_city",
-				"state": "sample_state",
-				"country": "sample_country",
-				"zip_code": "sample_pincode"
-    }
-   
-3. http://localhost:8080/v1/bfs/employees (@GetMapping)(New)
-
-	Get all employees and assosiated Address from db
-	
-	Sample response body:
-	
-	[
-    {
-        "id": 1,
-        "first_name": "sample_first_name",
-        "last_name": "sample_last_name",
-        "date_of_birth": "sample_dob",
-        "address": {
-            "line1": "sample_line1",
-            "city": "sample_city",
-            "state": "sample_state",
-            "country": "sample_country",
-            "zip_code": "sample_pincode"
-        }
-    },
-    {
-        "id": 2,
-        "first_name": "sample_first_name2",
-        "last_name": "sample_last_name2",
-        "date_of_birth": "sample_dob2",
-        "address": {
-            "line1": "sample_line1",
-            "city": "sample_city",
-            "state": "sample_state",
-            "country": "sample_country",
-            "zip_code": "sample_pincode"
-        }
-    }
-]
-	
-		
+## Assignment submission
+Thank you very much for your time to take this test. Please upload this complete solution in Github and send us the link to `bfs-sor-interview@paypal.com`.

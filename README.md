@@ -1,6 +1,6 @@
 # employeeserv
 
-As per requirements I have created/modified 3 rest endpoints. And also handled all exceptions.
+As per requirement created/modified 3 rest endpoints. And also handled all exceptions.
 Also coded for validations of RequestBody.
 
 Code can be found in below git repository link:
